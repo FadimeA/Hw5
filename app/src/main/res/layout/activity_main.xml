@@ -8,6 +8,16 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/result_button"
+        android:textColor="@color/navyblue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Result"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone" />
 
      <FrameLayout
 
@@ -16,7 +26,8 @@
          android:layout_width="match_parent"
          android:layout_height="0dp">
 
-     <HorizontalScrollView
+
+         <HorizontalScrollView
          android:layout_gravity="bottom"
          android:clipToPadding="false"
          android:layout_width="match_parent"
@@ -55,6 +66,7 @@
            android:onClick="onNumberClick"
            style ="@style/Grey.Button"
            android:text="AC" />
+
            <com.google.android.material.button.MaterialButton
                style="@style/Grey.Button"
                android:layout_marginHorizontal="18dp"

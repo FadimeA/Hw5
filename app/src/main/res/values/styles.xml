@@ -22,5 +22,14 @@
         <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@color/darkgrey</item>
     </style>
-
+    <style name="CustomSpinner" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/navyblue</item>
+        <item name="android:layout_width">158dp</item>
+        <item name="android:radius">10dp</item>
+    </style>
+    <style name="Customslider" parent="Widget.MaterialComponents.Slider">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:foregroundTint">@color/bgblue</item>
+    </style>
 </resources>

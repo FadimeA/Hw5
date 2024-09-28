@@ -1,5 +1,5 @@
 package com.example.hw5;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private Integer first, second;
     private Boolean isOperationClick;
+    private MaterialButton resultButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,40 +28,15 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+
         textView = findViewById(R.id.text_view);
-    }
+        resultButton = findViewById(R.id.result_button);
+        resultButton.setVisibility(View.GONE);
 
-    public void onNumberClick(View view) {
-        String text = ((MaterialButton) view).getText().toString();
-        if (text.equals("AC")) {
-            textView.setText("0");
-            first= 0;
-            second=0;
-        } else if (textView.getText().toString().equals("0")|| isOperationClick)  {
-            textView.setText(text);
-        } else {
-            textView.append(text);
-        }
-        isOperationClick= false;
-    }
-
-
-    public void onOperationClick(View view) {
-        if (view.getId() == R.id.btn_plus) {
-            first = Integer.valueOf(textView.getText().toString());
-            operation = "+";
-        } else if (view.getId() == R.id.btn_minus) {
-            first = Integer.valueOf(textView.getText().toString());
-            operation = "-";
-        } else if (view.getId() == R.id.btn_multiply) {
-            first = Integer.valueOf(textView.getText().toString());
-            operation = "*";
-        } else if (view.getId() == R.id.btn_divide) {
-            first = Integer.valueOf(textView.getText().toString());
-            operation = "/";
-        } else if (view.getId() == R.id.btn_equal) {
+        findViewById(R.id.btn_equal).setOnClickListener(view -> {
             second = Integer.valueOf(textView.getText().toString());
             Integer result;
+
             switch (operation) {
                 case "+":
                     result = first + second;
@@ -77,8 +53,45 @@ public class MainActivity extends AppCompatActivity {
                 default:
                     result = 0;
             }
+
             textView.setText(result.toString());
+            resultButton.setVisibility(View.VISIBLE);
+
+            resultButton.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                intent.putExtra("key", result.toString());
+                startActivity(intent);
+            });
+        });
+    }
+
+    public void onNumberClick(View view) {
+        String text = ((MaterialButton) view).getText().toString();
+        if (text.equals("AC")) {
+            textView.setText("0");
+            first = 0;
+            second = 0;
+            resultButton.setVisibility(View.GONE); // Скрыть кнопку
+        } else if (textView.getText().toString().equals("0") || isOperationClick) {
+            textView.setText(text);
+        } else {
+            textView.append(text);
+        }
+        isOperationClick = false;
+    }
+
+    public void onOperationClick(View view) {
+        first = Integer.valueOf(textView.getText().toString());
+        if (view.getId() == R.id.btn_plus) {
+            operation = "+";
+        } else if (view.getId() == R.id.btn_minus) {
+            operation = "-";
+        } else if (view.getId() == R.id.btn_multiply) {
+            operation = "*";
+        } else if (view.getId() == R.id.btn_divide) {
+            operation = "/";
         }
         isOperationClick = true;
+        resultButton.setVisibility(View.GONE);
     }
 }
